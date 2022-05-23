@@ -1,0 +1,91 @@
+﻿<Window x:Class="PhoneLink.ico"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhoneLink"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"  Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type ContextMenu}" x:Key="ContextMenuStyle">
+            <Setter Property="Foreground" Value="#ffffff"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border CornerRadius="5" BorderBrush="#123d5e" BorderThickness="1" Background="#865425" SnapsToDevicePixels="True">
+                            <ItemsPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ContextMenu}" x:Key="ContextMenuStyleBlue">
+            <Setter Property="Foreground" Value="#56ff12"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border CornerRadius="5" BorderBrush="#51dd76" BorderThickness="1" Background="#123456" SnapsToDevicePixels="True">
+                            <ItemsPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DefaultButton" TargetType="Button" >
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Content" Value="按钮"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#FFC564B8" Offset="0"/>
+                        <GradientStop Color="#FFF57A7A" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style >
+        <ControlTemplate x:Key="buttonTemplate" TargetType="Button" >
+            <Border BorderThickness="1" CornerRadius="30" Background="{TemplateBinding Background}">
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers >
+                <Trigger Property="Button.IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF57A7A" Offset="0"/>
+                                <GradientStop Color="#FF7B0DFC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger >
+            </ControlTemplate.Triggers >
+        </ControlTemplate >
+    </Window.Resources>
+    <Grid>
+        <tb:TaskbarIcon ToolTipText="PhoneLink"
+                IconSource="app.ico" x:Name="contexIcon" Visibility="Hidden">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu x:Name="contex" Style="{StaticResource ContextMenuStyleBlue}">
+                    <MenuItem Header="状态:未连接" IsEnabled="False" x:Name="ServerText"/>
+                    <MenuItem Header="状态:已监听" IsEnabled="False" x:Name="MonitorText"/>
+                    <MenuItem Header="取消监听" Click="Monitor" IsEnabled="True"/>
+                    <MenuItem Header="连接服务器" Click="ServerLinkFun" IsEnabled="True"/>
+                    <MenuItem Header="切换皮肤" Click="skinSwitch" IsEnabled="True"/>
+                    <Separator/>
+                    <MenuItem Header="退出" Click="ExitThis"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        <TextBox Margin="200,69,200,266" TextWrapping="Wrap" Text="00001" FontSize="24" SelectionOpacity="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <TextBox.Background>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF57A7A" Offset="0"/>
+                    <GradientStop Color="#FF7B0DFC" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <Button x:Name="button" Content="监听并链接" HorizontalAlignment="Center" Margin="0,297,0,0" VerticalAlignment="Top" FontSize="32"  Width="294" Height="91" Style="{DynamicResource DefaultButton}" Template="{DynamicResource  buttonTemplate}" Click="MonitorInit"/>
+        <Image x:Name="ImageBox" HorizontalAlignment="Left" Height="112" Margin="23,169,0,0" VerticalAlignment="Top" Width="123"/>
+    </Grid>
+</Window>
